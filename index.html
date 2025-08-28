@@ -1,0 +1,113 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-Enhanced Book & Article Summarizer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>AI-Enhanced Book & Article Summarizer</h1>
+      <p class="muted">Paste text, upload a file, or give a public URL. Choose summarization style and get highlights, keywords, and a short or detailed summary.</p>
+    </header>
+
+    <main>
+      <section class="input-area">
+        <label for="sourceType">Input:</label>
+        <div class="controls-row">
+          <select id="sourceType">
+            <option value="paste">Paste Text</option>
+            <option value="file">Upload .txt / .pdf (text only)</option>
+            <option value="url">Public URL</option>
+          </select>
+
+          <input id="urlInput" type="url" placeholder="https://example.com/article" style="display:none;">
+          <input id="fileInput" type="file" accept=".txt,.pdf" style="display:none;">
+        </div>
+
+        <textarea id="textInput" placeholder="Paste or type the book chapter / article text here..."></textarea>
+
+        <div class="row">
+          <label for="mode">Mode:</label>
+          <select id="mode">
+            <option value="concise">Concise (1-3 sentences)</option>
+            <option value="standard">Standard (short paragraph)</option>
+            <option value="detailed">Detailed (multi-paragraph)</option>
+            <option value="chapterwise">Chapter-wise (if input has markers)</option>
+          </select>
+
+          <label for="extras">Extras:</label>
+          <select id="extras">
+            <option value="all">Summary + Keywords + Highlights</option>
+            <option value="summary">Only Summary</option>
+            <option value="keywords">Only Keywords</option>
+            <option value="highlights">Only Highlights</option>
+          </select>
+        </div>
+
+        <div class="row small">
+          <label for="language">Language:</label>
+          <select id="language">
+            <option value="en">English</option>
+            <option value="auto">Auto-detect</option>
+          </select>
+
+          <label for="useAi">Use AI:</label>
+          <select id="useAi">
+            <option value="ai">Yes — remote model (requires API key / proxy)</option>
+            <option value="local">No — built-in extractive summarizer</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button id="summarizeBtn">Summarize</button>
+          <button id="clearBtn" class="muted">Clear</button>
+          <button id="downloadBtn" class="muted">Download Summary</button>
+        </div>
+
+        <div class="api-area">
+          <label>OpenAI API (recommended: use server proxy)</label>
+          <input id="apiKey" type="password" placeholder="Paste API key for quick testing (not secure)"/>
+          <div class="proxy-note">Tip: For production, set up a server-side proxy to call the OpenAI API so you don't expose keys in the browser.</div>
+        </div>
+
+      </section>
+
+      <section class="output-area">
+        <div class="output-header">
+          <h2>Output</h2>
+          <div class="toggles">
+            <label><input type="checkbox" id="showKeywords" checked> Keywords</label>
+            <label><input type="checkbox" id="showHighlights" checked> Highlights</label>
+          </div>
+        </div>
+
+        <div id="summaryContainer" class="card">
+          <h3>Summary</h3>
+          <div id="summary" class="result">No summary yet — click <strong>Summarize</strong>.</div>
+        </div>
+
+        <div id="keywordsContainer" class="card small">
+          <h3>Keywords</h3>
+          <div id="keywords" class="result"></div>
+        </div>
+
+        <div id="highlightsContainer" class="card small">
+          <h3>Highlights</h3>
+          <div id="highlights" class="result"></div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer>
+      <small>Built for learning/demo purposes. For production use, integrate with a secure server-side API key.</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
